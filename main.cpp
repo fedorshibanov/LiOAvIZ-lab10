@@ -1,7 +1,6 @@
 #include "graph.h"
 
 
-/* Буквальный алгоритм методички для весов: расстояния по дереву BFS. */
 void first_visit(const Graph *g,int start,int *d) {
     for(int i=0;i<g->n;++i) d[i]=-1;
     d[start]=0; std::queue<int> q; q.push(start);
@@ -31,8 +30,6 @@ void dijkstra(const Graph *g,int start,int *d) {
 }
 
 
-/* Для орграфа e(v) вычисляется по исходящим расстояниям.
-   Если хотя бы одна вершина недостижима, e(v)=INF (код -1). */
 void metrics(const Graph *g) {
     int *all=(int *)allocate((size_t)g->n*g->n,sizeof(int));
     int *ecc=(int *)allocate(g->n,sizeof(int));
@@ -61,7 +58,6 @@ void metrics(const Graph *g) {
     puts("");
     if(radius==INT_MAX) puts("Радиус: INF"); else printf("Радиус: %d\n",radius);
     if(!all_finite) puts("Диаметр: INF"); else printf("Диаметр: %d\n",diameter);
-    /* При r=INF все вершины центральные в расширенной метрике. */
     printf("Центральные вершины:");
     for(int u=0;u<g->n;++u)
         if(radius==INT_MAX ? ecc[u]<0 : ecc[u]==radius) printf(" %d",u+1);
